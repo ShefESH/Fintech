@@ -17,6 +17,6 @@ Install Node.js LTS on the host, extract the ZIP, open Command Prompt in the fol
     set HOST_PASSWORD=YourLongPrivateEventPassword
     npm start
 
-Open http://localhost:3000 . Players join using a reachable host address and room code. No `npm install` required.
+Open http://127.0.0.1:3000 . The server binds only to 127.0.0.1; remote players need a reverse proxy or tunnel and the room code. No `npm install` required.
 
 Note: Game state is in memory and resets on server restart. Test connectivity on the actual event network.

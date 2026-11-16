@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-const base=process.env.TEST_BASE_URL||'http://localhost:3101';
+const base=process.env.TEST_BASE_URL||'http://127.0.0.1:3101';
 const password=process.env.TEST_HOST_PASSWORD;
 assert(password,'Set TEST_HOST_PASSWORD for a disposable local server');
 async function call(path,data){const r=await fetch(base+'/api/'+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});return r.json()}

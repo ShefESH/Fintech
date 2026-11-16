@@ -20,7 +20,7 @@ Windows Command Prompt:
     set HOST_PASSWORD=YourPrivatePassword
     npm start
 
-Open http://localhost:3000 on the host. Other players use http://HOST_LAN_IP:3000 from the same reachable network. Test campus Wi-Fi isolation before the event.
+Open http://127.0.0.1:3000 on the host. The server binds only to 127.0.0.1. Remote players need a reverse proxy or tunnel to reach it.
 
 ### Host guide
 The host can privately inspect correct options, evidence files, verification answers and rationale through the Host Guide panel. The host controls each round, can inject scenario updates, reveal results and start the next mission.
@@ -42,7 +42,7 @@ New rooms start with optional tools **off**. Players wait in the lobby, then com
 The organiser can enable **Optional tools** in Event controls before a mission or after a reveal. The switch applies to every team and stays locked during a live mission. It enables evidence pins, verification, financial defence, case notes and the advanced terminal. Clues and the glossary remain available in the basic flow. Optional actions are also gated on the server. Mission content, answers, financial scenarios and existing point values are retained. UI bonus descriptions now match the existing scoring: verification 100, pins up to 30, and a case note of at least 80 characters 20.
 
 ### Gameplay checks
-Start a disposable local server, then run `TEST_HOST_PASSWORD=your-test-password node tests/gameplay.mjs`. The test defaults to `http://localhost:3101`; set `TEST_BASE_URL` to use a different port. It creates its own test room and checks all seven missions, both optional-tool modes, host authorisation, live settings locks, required evidence/response gates, submission locks, bonus scoring and expiry. No external packages are required.
+Start a disposable local server, then run `TEST_HOST_PASSWORD=your-test-password node tests/gameplay.mjs`. The test defaults to `http://127.0.0.1:3101`; set `TEST_BASE_URL` to use a different port. It creates its own test room and checks all seven missions, both optional-tool modes, host authorisation, live settings locks, required evidence/response gates, submission locks, bonus scoring and expiry. No external packages are required.
 
 ### Branching incident decisions
 The original evidence browser is retained. After reviewing evidence, teams make three incident decisions. Each committed action produces an operations update; continuing opens the next situation based on that choice. Decisions are stored per team on the server and cannot be undone. A final finding unlocks once all three outcomes have been reviewed. The existing final response and finding scoring remains in place. Run `node tests/branches.mjs` to check all 84 complete mission paths.
