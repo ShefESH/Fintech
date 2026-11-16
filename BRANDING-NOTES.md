@@ -1,0 +1,1 @@
+VAULTBREAK V8 uses only the supplied Sheffield FinTech Society logo. No second logo or invented Ethical Hacking Society emblem is shown. The collaboration name SHEFFIELD FINTECH × ETHICAL HACKING appears on the main landing page, all game views (including the host and projector), and footer. The underlying V7 game mechanics are unchanged.
