@@ -34,3 +34,15 @@ The host can privately inspect correct options, evidence files, verification ans
 - A recommended event duration is 85–100 minutes: 5-minute briefing, seven 10-minute missions, 10–20-minute debrief. Shorten rounds if needed.
 
 **Important:** This game uses a simulated, read-only evidence terminal. It does not provide a real OS shell, exploit environment, or production bank access. All evidence is fictional.
+
+
+### Simplified player flow
+New rooms start with optional tools **off**. Players wait in the lobby, then complete three steps: review at least two evidence files, choose an incident response, and select a finding. Selecting a finding does not submit it: **Submit case** locks the team's response and finding. Submitted and timed-out teams wait for the host's reveal; results show the correct finding, explanation and team points.
+
+The organiser can enable **Optional tools** in Event controls before a mission or after a reveal. The switch applies to every team and stays locked during a live mission. It enables evidence pins, verification, financial defence, case notes and the advanced terminal. Clues and the glossary remain available in the basic flow. Optional actions are also gated on the server. Mission content, answers, financial scenarios and existing point values are retained. UI bonus descriptions now match the existing scoring: verification 100, pins up to 30, and a case note of at least 80 characters 20.
+
+### Gameplay checks
+Start a disposable local server, then run `TEST_HOST_PASSWORD=your-test-password node tests/gameplay.mjs`. The test defaults to `http://localhost:3101`; set `TEST_BASE_URL` to use a different port. It creates its own test room and checks all seven missions, both optional-tool modes, host authorisation, live settings locks, required evidence/response gates, submission locks, bonus scoring and expiry. No external packages are required.
+
+### Branching incident decisions
+The original evidence browser is retained. After reviewing evidence, teams make three incident decisions. Each committed action produces an operations update; continuing opens the next situation based on that choice. Decisions are stored per team on the server and cannot be undone. A final finding unlocks once all three outcomes have been reviewed. The existing final response and finding scoring remains in place. Run `node tests/branches.mjs` to check all 84 complete mission paths.

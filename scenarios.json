@@ -1,0 +1,702 @@
+[
+  {
+    "nodes": {
+      "opening": {
+        "title": "The payment desk is calling",
+        "brief": "The £186,400 invoice is queued. Treasury wants an instruction before it releases the payment.",
+        "choices": [
+          {
+            "label": "Place a temporary hold on the beneficiary change",
+            "result": "Treasury holds the change. The invoice remains queued against the approved beneficiary. The supplier still needs to be contacted.",
+            "next": "controlled"
+          },
+          {
+            "label": "Let Treasury process the requested change",
+            "result": "Treasury accepts the change into its queue. A payments analyst spots the mismatch before settlement and calls you back: “Do we recall this?”",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "A reply arrives",
+        "brief": "The sender replies to your hold notice with a new phone number and an urgent demand to release the invoice.",
+        "choices": [
+          {
+            "label": "Call the vendor’s registered number",
+            "result": "The registered vendor contact denies requesting a change. Treasury now has independent confirmation to keep the hold.",
+            "next": "resolved"
+          },
+          {
+            "label": "Use the number in the reply",
+            "result": "The person answering confirms the new details. Vendor operations then warns you that this number is not in the vendor master.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "The settlement window is closing",
+        "brief": "The altered payment is still pending. You have one chance to interrupt the queue while checking the supplier.",
+        "choices": [
+          {
+            "label": "Recall the queued payment and call the registered contact",
+            "result": "Payments stops the queue. The registered contact denies the change. You recover the situation before funds leave.",
+            "next": "resolved"
+          },
+          {
+            "label": "Ask the sender to email approval",
+            "result": "Another approval arrives from the same suspicious thread. Treasury still lacks independent authorisation and the changed payment remains pending.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The vendor has denied the change. Treasury asks what to retain and who should own the follow-up.",
+        "choices": [
+          {
+            "label": "Keep the hold, preserve headers and escalate the forged change",
+            "result": "Treasury retains the hold. The original message and payment audit trail are handed to the incident lead.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Release the payment on the email approval",
+            "result": "Treasury acts on the unverified email. The beneficiary mismatch remains unresolved in your case record.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Remove the message and approve the changed details",
+            "result": "The changed details remain in use and the original message is no longer available to the investigators.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "Treasury cannot establish who authorised the change. The payment requires an incident lead’s decision.",
+        "choices": [
+          {
+            "label": "Keep the hold, preserve headers and escalate the forged change",
+            "result": "Treasury retains the hold. The original message and payment audit trail are handed to the incident lead.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Release the payment on the email approval",
+            "result": "Treasury acts on the unverified email. The beneficiary mismatch remains unresolved in your case record.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Remove the message and approve the changed details",
+            "result": "The changed details remain in use and the original message is no longer available to the investigators.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "The monitoring alert is live",
+        "brief": "Nine payments from B have reached X1, X2 and X3. Your analyst asks where to focus before the trail grows.",
+        "choices": [
+          {
+            "label": "Trace the linked accounts as one network",
+            "result": "The analyst connects the three beneficiaries to Y. They can now distinguish the original inflow from the internal hops.",
+            "next": "controlled"
+          },
+          {
+            "label": "Review each sub-£10,000 payment separately",
+            "result": "The individual reviews do not explain the combined movement. A second analyst notices that all three beneficiaries feed the same account.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "Follow the exit",
+        "brief": "The network view shows money leaving Y. The review team asks which total should anchor its report.",
+        "choices": [
+          {
+            "label": "Separate the external cash-out from internal transfers",
+            "result": "The team isolates the £61,000 exit and records the £5,000 remaining at Y. The funds are no longer counted twice.",
+            "next": "resolved"
+          },
+          {
+            "label": "Add every transfer to the exposure total",
+            "result": "The report inflates the movement by counting the same funds again. Quality review asks you to reconcile the ledger.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "A connected account appears",
+        "brief": "The isolated reviews missed a shared destination. Y now appears in all three traces.",
+        "choices": [
+          {
+            "label": "Rebuild the graph and reconcile the external exit",
+            "result": "The rebuilt trace separates origin payments from internal hops and identifies the external cash-out.",
+            "next": "resolved"
+          },
+          {
+            "label": "Close the alert because the original amounts are small",
+            "result": "The analyst cannot close it: shared-device evidence links the beneficiaries. The connected network remains unexplained.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "A reconciled payment graph is ready. Decide how to hand the case to the AML team.",
+        "choices": [
+          {
+            "label": "Preserve the graph and escalate for enhanced review",
+            "result": "The AML team receives the connected payment graph and a documented rationale. No conclusion of criminal wrongdoing is asserted.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Report all hops as new deposits",
+            "result": "The report overstates source funds. AML receives an unreconciled total and must redo the analysis.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Dismiss the transfers as below the threshold",
+            "result": "The connected pattern is left without enhanced review despite the linked beneficiaries.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "The graph is still unresolved. Decide whether to preserve and escalate the evidence or close the alert.",
+        "choices": [
+          {
+            "label": "Preserve the graph and escalate for enhanced review",
+            "result": "The AML team receives the connected payment graph and a documented rationale. No conclusion of criminal wrongdoing is asserted.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Report all hops as new deposits",
+            "result": "The report overstates source funds. AML receives an unreconciled total and must redo the analysis.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Dismiss the transfers as below the threshold",
+            "result": "The connected pattern is left without enhanced review despite the linked beneficiaries.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "An expired identity is still connected",
+        "brief": "c-42 has an active production session. The settlement team asks you to avoid disrupting its service account.",
+        "choices": [
+          {
+            "label": "Trace the contractor’s group memberships",
+            "result": "IAM confirms support-temp inherits ops-admin. The production grants come through that nested path.",
+            "next": "controlled"
+          },
+          {
+            "label": "Remove the contractor’s direct export grant",
+            "result": "The IAM change succeeds, but another export check still passes. The inherited ops-admin path remains intact.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "The access path is confirmed",
+        "brief": "You know which membership grants production access. An active session still exists.",
+        "choices": [
+          {
+            "label": "Revoke the contractor session and nested membership",
+            "result": "The contractor’s session is revoked and the inherited route is removed. Settlement service remains connected.",
+            "next": "resolved"
+          },
+          {
+            "label": "Remove only the visible direct grant",
+            "result": "The next permission check still succeeds through ops-admin. The identity team asks you to revisit inheritance.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "The export check still passes",
+        "brief": "Removing a direct grant did not contain the access. The service account is running a legitimate settlement job.",
+        "choices": [
+          {
+            "label": "Target c-42’s inherited membership and session",
+            "result": "The inherited access is removed without touching the service account. IAM confirms the contractor cannot reconnect.",
+            "next": "resolved"
+          },
+          {
+            "label": "Disable all production identities",
+            "result": "The contractor is disconnected, but settlement also loses its service account. Operations raises a service interruption.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The contractor is contained and settlement continues. The incident lead asks for the permanent follow-up.",
+        "choices": [
+          {
+            "label": "Preserve IAM logs and review the expired access path",
+            "result": "IAM retains the group and session records and assigns a review of expired contractor access.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Restore access without reviewing group inheritance",
+            "result": "The inherited path is not reviewed. The same production access can recur when the identity reconnects.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Delete the roles and service accounts",
+            "result": "The identity records and business-critical accounts are removed, complicating recovery and investigation.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "Either inherited access or a service interruption remains. The incident lead needs a targeted recovery plan.",
+        "choices": [
+          {
+            "label": "Preserve IAM logs and review the expired access path",
+            "result": "IAM retains the group and session records and assigns a review of expired contractor access.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Restore access without reviewing group inheritance",
+            "result": "The inherited path is not reviewed. The same production access can recur when the identity reconnects.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Delete the roles and service accounts",
+            "result": "The identity records and business-critical accounts are removed, complicating recovery and investigation.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "The export job is counting down",
+        "brief": "An impossible-travel alert is open. admin-7 still has an active session and job EX-229 is queued.",
+        "choices": [
+          {
+            "label": "Ask operations to pause the queued export",
+            "result": "Operations pauses EX-229. The session remains active, so the attacker may try another route.",
+            "next": "controlled"
+          },
+          {
+            "label": "Wait for another alert before intervening",
+            "result": "A second privileged session appears. EX-229 remains queued, and the incident lead asks for immediate containment.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "Another session is detected",
+        "brief": "Pausing one job bought time, but identity control is still compromised.",
+        "choices": [
+          {
+            "label": "Revoke the suspect sessions and refresh tokens",
+            "result": "Identity operations invalidates the suspect sessions. The paused export remains blocked and the audit trail is intact.",
+            "next": "resolved"
+          },
+          {
+            "label": "Stop only the visible job",
+            "result": "The visible job is stopped, but a privileged session is still active. Operations sees another attempt to queue an export.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "Containment is now urgent",
+        "brief": "The queued job is approaching its scheduled run. The team can still interrupt it.",
+        "choices": [
+          {
+            "label": "Stop EX-229 and revoke the suspect tokens",
+            "result": "Operations cancels the queued job and identity revokes the tokens. The attacker loses this export path.",
+            "next": "resolved"
+          },
+          {
+            "label": "Erase the login records and reset the dashboard",
+            "result": "The dashboard looks quiet because records were removed. The session and export queue have not been contained.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The session and queued export are contained. The incident commander asks for the next instruction.",
+        "choices": [
+          {
+            "label": "Keep targeted containment, preserve logs and invoke the incident lead",
+            "result": "The incident lead receives immutable records and coordinates scoping while the suspect access stays revoked.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Hand it over to the morning shift without containment",
+            "result": "The active threat is left to the next shift without a confirmed containment plan.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Delete logs and disable all customer services",
+            "result": "Customer services are disrupted and the evidence needed to scope the incident is lost.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "The attacker’s access or evidence preservation is still unresolved. Choose the response to hand over.",
+        "choices": [
+          {
+            "label": "Keep targeted containment, preserve logs and invoke the incident lead",
+            "result": "The incident lead receives immutable records and coordinates scoping while the suspect access stays revoked.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Hand it over to the morning shift without containment",
+            "result": "The active threat is left to the next shift without a confirmed containment plan.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Delete logs and disable all customer services",
+            "result": "Customer services are disrupted and the evidence needed to scope the incident is lost.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "Support has a customer report",
+        "brief": "A customer says changing a statement ID shows someone else’s statement. Engineering asks what you want reproduced.",
+        "choices": [
+          {
+            "label": "Reproduce the captured cross-account request",
+            "result": "Engineering replays principal 7280 requesting object 7281 and observes HTTP 200. Authentication is present; ownership enforcement is not.",
+            "next": "controlled"
+          },
+          {
+            "label": "Hide the statement link in the interface",
+            "result": "The link disappears, but support reproduces the same response by changing the object ID in the request.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "Engineering offers a patch",
+        "brief": "The proposed change checks object ownership and authorised staff scopes on the server.",
+        "choices": [
+          {
+            "label": "Test the ownership check against another customer’s ID",
+            "result": "The cross-account request is now denied. The team also verifies that authorised access still works.",
+            "next": "resolved"
+          },
+          {
+            "label": "Replace the IDs with hard-to-guess strings",
+            "result": "The identifiers become harder to guess, but the server still does not check ownership when a valid ID is supplied.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "The UI change did not stop it",
+        "brief": "The endpoint still returns a foreign statement. Engineering needs a server-side decision.",
+        "choices": [
+          {
+            "label": "Add and test object-level authorisation",
+            "result": "The server denies the cross-account request while keeping authorised access. The team prepares negative-access tests.",
+            "next": "resolved"
+          },
+          {
+            "label": "Suppress support reports until the UI is updated",
+            "result": "The endpoint remains reachable and the same cross-account read can still succeed. Support escalates again.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The access test now passes. The incident is not over: successful historical reads still need review.",
+        "choices": [
+          {
+            "label": "Deploy ownership checks, add negative tests and audit cross-account reads",
+            "result": "Engineering deploys the scoped check and tests. Incident response audits the successful foreign-object reads.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Rely on hidden links and obscure identifiers",
+            "result": "The interface offers less visibility, but the server still lacks a reliable object-access control.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Disable TLS to inspect requests",
+            "result": "Transport protection is removed without fixing object-level authorisation.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "The object-access flaw is still unresolved. Decide what engineering and incident response should do next.",
+        "choices": [
+          {
+            "label": "Deploy ownership checks, add negative tests and audit cross-account reads",
+            "result": "Engineering deploys the scoped check and tests. Incident response audits the successful foreign-object reads.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Rely on hidden links and obscure identifiers",
+            "result": "The interface offers less visibility, but the server still lacks a reliable object-access control.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Disable TLS to inspect requests",
+            "result": "Transport protection is removed without fixing object-level authorisation.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "Treasury requests a decision",
+        "brief": "Withdrawals are accelerating. Treasury has £8.0m opening liquidity and needs a forecast it can act on.",
+        "choices": [
+          {
+            "label": "Include withdrawals and settlement outflows in the forecast",
+            "result": "Treasury includes both £6.2m withdrawals and £0.9m settlement outflows. The forecast shows pressure against the operating buffer.",
+            "next": "controlled"
+          },
+          {
+            "label": "Compare opening liquidity with withdrawals only",
+            "result": "The first report looks less severe, but settlement operations then confirms a further £0.9m is due.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "Funding is available",
+        "brief": "Treasury confirms a £0.6m intraday line. It asks whether this closes the buffer gap.",
+        "choices": [
+          {
+            "label": "Activate the confirmed line and recalculate the buffer",
+            "result": "The revised forecast reaches £1.5m. It remains below the £2.5m required buffer, so escalation is still needed.",
+            "next": "resolved"
+          },
+          {
+            "label": "Declare the incident resolved once funding is activated",
+            "result": "Funding is activated, but the settlement desk points out that the required buffer is still breached.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "The forecast is challenged",
+        "brief": "Settlement was left out of the first calculation. Treasury asks for a corrected position before it briefs management.",
+        "choices": [
+          {
+            "label": "Include settlement, activate funding and compare with the buffer",
+            "result": "Treasury corrects the forecast. Even with the confirmed funding line, the closing liquidity remains below the minimum buffer.",
+            "next": "resolved"
+          },
+          {
+            "label": "Keep the original report to avoid alarming management",
+            "result": "Treasury and settlement now hold conflicting forecasts. Management has not been told about the projected buffer breach.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The funding line is active but a shortfall remains. Customer withdrawals include legitimate requests.",
+        "choices": [
+          {
+            "label": "Escalate the gap, target suspicious payments and communicate accurately",
+            "result": "Treasury escalates the shortfall while security targets suspicious payments and communications reflect the known position.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Conceal the shortfall from management",
+            "result": "The buffer breach is withheld, preventing management from responding to the forecast.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Freeze every customer withdrawal indefinitely",
+            "result": "Legitimate customers are blocked indiscriminately while the underlying funding problem remains.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "The liquidity position or management report is unresolved. Decide how to contain risk without indiscriminate restrictions.",
+        "choices": [
+          {
+            "label": "Escalate the gap, target suspicious payments and communicate accurately",
+            "result": "Treasury escalates the shortfall while security targets suspicious payments and communications reflect the known position.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Conceal the shortfall from management",
+            "result": "The buffer breach is withheld, preventing management from responding to the forecast.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Freeze every customer withdrawal indefinitely",
+            "result": "Legitimate customers are blocked indiscriminately while the underlying funding problem remains.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  },
+  {
+    "nodes": {
+      "opening": {
+        "title": "The board wants a plan",
+        "brief": "Four controls compete for a £500k budget. The board asks for a defensible recommendation, not a list of purchases.",
+        "choices": [
+          {
+            "label": "Compare each control’s cost with expected loss reduction",
+            "result": "The team builds a cost-and-benefit portfolio rather than ranking controls by price alone.",
+            "next": "controlled"
+          },
+          {
+            "label": "Recommend the cheapest control immediately",
+            "result": "The board asks what risk remains untreated. Cost alone has not explained why the other controls were excluded.",
+            "next": "exposed"
+          }
+        ]
+      },
+      "controlled": {
+        "title": "Audit challenges the model",
+        "brief": "The scenario assumes reductions are independent. Audit wants that assumption recorded before the recommendation is approved.",
+        "choices": [
+          {
+            "label": "Document additivity and test the net benefit",
+            "result": "The portfolio totals £500k cost and £850k expected reduction. The net expected benefit is reported with its uncertainty.",
+            "next": "resolved"
+          },
+          {
+            "label": "Present the estimated savings as guaranteed",
+            "result": "Audit rejects the guarantee: expected reductions are estimates. The board asks for a corrected statement of uncertainty.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "exposed": {
+        "title": "The board asks for the missing comparison",
+        "brief": "Your initial recommendation has no portfolio analysis. All four controls can be delivered in the planning horizon.",
+        "choices": [
+          {
+            "label": "Rebuild the comparison using costs and expected reductions",
+            "result": "The revised analysis shows the full portfolio fits the budget. Owners and validation criteria can now be assigned.",
+            "next": "resolved"
+          },
+          {
+            "label": "Reject all spending because forecasts are uncertain",
+            "result": "No controls are planned. Audit points out that uncertainty requires validation rather than ignoring the estimated benefits.",
+            "next": "unresolved"
+          }
+        ]
+      },
+      "resolved": {
+        "title": "Make the handover decision",
+        "brief": "The portfolio is costed and its assumptions are explicit. The board wants an accountable delivery decision.",
+        "choices": [
+          {
+            "label": "Fund the validated portfolio with owners, dates and metrics",
+            "result": "The board receives a funded delivery plan with accountable owners and a requirement to validate the estimates.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Choose only by the lowest purchase price",
+            "result": "The decision omits comparative risk reduction and leaves the wider portfolio unassessed.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Defer every control indefinitely",
+            "result": "The identified risks remain without a funded remediation plan.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      },
+      "unresolved": {
+        "title": "Make the handover decision",
+        "brief": "The portfolio or its assumptions are not yet defensible. Choose the recommendation to take forward.",
+        "choices": [
+          {
+            "label": "Fund the validated portfolio with owners, dates and metrics",
+            "result": "The board receives a funded delivery plan with accountable owners and a requirement to validate the estimates.",
+            "next": null,
+            "response": 0
+          },
+          {
+            "label": "Choose only by the lowest purchase price",
+            "result": "The decision omits comparative risk reduction and leaves the wider portfolio unassessed.",
+            "next": null,
+            "response": 1
+          },
+          {
+            "label": "Defer every control indefinitely",
+            "result": "The identified risks remain without a funded remediation plan.",
+            "next": null,
+            "response": 2
+          }
+        ]
+      }
+    }
+  }
+]
