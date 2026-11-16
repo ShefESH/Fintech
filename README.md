@@ -13,7 +13,7 @@ This is the revised 7-round Node.js multiplayer game based on the existing Vault
 7. **Boardroom: Risk-Adjusted Remediation** — costed control portfolio, expected loss reduction, uncertainty; verification: £350,000 net expected benefit.
 
 ### How to run
-Install Node.js 18 or later. No npm packages need to be downloaded.
+Install Node.js 22 or later. No npm packages need to be downloaded. Set HOST_PASSWORD in the environment as below, or copy .env.example to .env and choose your own organiser password.
 
 Windows Command Prompt:
 
@@ -37,7 +37,7 @@ The host can privately inspect correct options, evidence files, verification ans
 
 
 ### Simplified player flow
-New rooms start with optional tools **off**. Players wait in the lobby, then complete three steps: review at least two evidence files, choose an incident response, and select a finding. Selecting a finding does not submit it: **Submit case** locks the team's response and finding. Submitted and timed-out teams wait for the host's reveal; results show the correct finding, explanation and team points.
+New rooms start with optional tools **off**. Players wait in the lobby, then complete three steps: review at least two evidence files, work through three branching incident decisions, and select a finding. Selecting a finding does not submit it: **Submit case** locks the team's response and finding. Submitted and timed-out teams wait for the host's reveal; results show the correct finding, explanation and team points.
 
 The organiser can enable **Optional tools** in Event controls before a mission or after a reveal. The switch applies to every team and stays locked during a live mission. It enables evidence pins, verification, financial defence, case notes and the advanced terminal. Clues and the glossary remain available in the basic flow. Optional actions are also gated on the server. Mission content, answers, financial scenarios and existing point values are retained. UI bonus descriptions now match the existing scoring: verification 100, pins up to 30, and a case note of at least 80 characters 20.
 

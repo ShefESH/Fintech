@@ -1,5 +1,5 @@
 'use strict';
-process.loadEnvFile('.env');
+try { process.loadEnvFile('.env'); } catch (error) { if (error.code !== 'ENOENT') throw error; }
 const http = require('http'), fs = require('fs'), path = require('path'), crypto = require('crypto');
 const PORT = Number(process.env.PORT || 3000), HOST_PASSWORD = process.env.HOST_PASSWORD || '';
 if (!HOST_PASSWORD) { console.error('HOST_PASSWORD must be set. Example Windows: set HOST_PASSWORD=YourLongPrivatePassword'); process.exit(1) }
